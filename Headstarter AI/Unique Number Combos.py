@@ -27,12 +27,21 @@
 from itertools import permutations
 
 def computeUniqueCombinations(nums):
-    # Generate all permutations of the input list
-    result = list(permutations(nums))
-    
-    # Convert each tuple to a list
-    result = [list(perm) for perm in result]
-    
+    # Write your plan below
+    #We’ll implement a helper function that will generate permutations by swapping elements.
+    #The function will take the current index and the remaining part of the list to generate all permutations.
+    #Once we reach the end of the list, we’ll add the current permutation to the result list.
+    #The backtracking part involves swapping the elements back to their original positions to explore other possible permutations.
+    result = []
+    def backtrack(start, end):
+        if start == end:
+            result.append(nums[:])
+        for i in range(start, end):
+            nums[start], nums[i] = nums[i], nums[start]  # Swap
+            backtrack(start + 1, end)
+            nums[start], nums[i] = nums[i], nums[start]  # Backtrack
+
+    backtrack(0, len(nums))
     return result
 
 # Test cases
